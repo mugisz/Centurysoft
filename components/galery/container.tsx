@@ -31,10 +31,12 @@ export function GalleryContainer() {
 
   return (
     <motion.section
-      className="flex flex-col justify-center gap-4 my-10"
+      className="flex flex-col justify-center gap-6 my-12 px-4"
       variants={galeryContainerVariants}
-      initial="hidden"
-      animate="visible"
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.3 }}
     >
       <motion.div variants={galeryHeaderVariants}>
         <ContentHeader
@@ -46,7 +48,7 @@ export function GalleryContainer() {
       <div className="flex items-center flex-col justify-center">
         <AnimatePresence mode="popLayout">
           <motion.div
-            className="flex flex-row flex-wrap justify-center gap-4"
+            className="flex flex-row flex-wrap justify-center gap-6"
             variants={galeryContainerVariants}
             layout
           >
@@ -60,16 +62,17 @@ export function GalleryContainer() {
                 layout
                 layoutId={`image-${index}`}
                 whileHover={{
-                  scale: 1.05,
-                  y: -5,
-                  transition: { duration: 0.3 },
+                  scale: 1.08,
+                  y: -8,
+                  rotate: index % 2 === 0 ? 1 : -1,
+                  transition: { duration: 0.3, ease: "easeOut" },
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="overflow-hidden rounded-sm"
+                whileTap={{ scale: 0.94 }}
+                className="overflow-hidden rounded-lg shadow-md"
               >
                 <Image
                   src={ContentCards}
-                  className="rounded-sm transition-all duration-300 hover:brightness-110"
+                  className="rounded-lg transition-all duration-300 hover:brightness-125"
                   alt={`Gallery image ${index + 1}`}
                   width={225}
                   height={225}
@@ -79,21 +82,39 @@ export function GalleryContainer() {
           </motion.div>
         </AnimatePresence>
 
-        <motion.div variants={galeryButtonVariants} className="mt-6">
-          {visibleImages < totalImages && !isExpanded && (
-            <BounceButton
-              text="See more"
-              handleClick={handleSeeMore}
-              isHidden={false}
-            />
-          )}
-          {isExpanded && (
-            <BounceButton
-              text="Show less"
-              handleClick={handleShowLess}
-              isHidden={false}
-            />
-          )}
+        <motion.div variants={galeryButtonVariants} className="mt-8">
+          <AnimatePresence mode="wait">
+            {visibleImages < totalImages && !isExpanded && (
+              <motion.div
+                key="see-more"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <BounceButton
+                  text="See more"
+                  handleClick={handleSeeMore}
+                  isHidden={false}
+                />
+              </motion.div>
+            )}
+            {isExpanded && (
+              <motion.div
+                key="show-less"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <BounceButton
+                  text="Show less"
+                  handleClick={handleShowLess}
+                  isHidden={false}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </motion.section>

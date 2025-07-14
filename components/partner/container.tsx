@@ -30,8 +30,10 @@ export function PartnerContainer() {
     <motion.section
       className="flex flex-col justify-center items-center gap-6 px-2 sm:px-0"
       variants={partnersContainerVariants}
-      initial="hidden"
-      animate="visible"
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.3 }}
     >
       <motion.div variants={partnersHeaderVariants}>
         <ContentHeader

@@ -8,9 +8,11 @@ export function BannerContainer() {
   return (
     <motion.section
       className="w-[80%] mx-auto lg:w-full h-[500px] lg:h-[370px] py-2 rounded-3xl  border border-white relative flex justify-start items-center overflow-hidden"
-      initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.3 }}
     >
       <motion.div
         className="flex flex-col justify-start items-center lg:items-start lg:ml-10  lg:w-1/2 gap-4 relative z-10  h-full pt-10 px-2 lg:px-0 "

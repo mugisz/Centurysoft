@@ -1,110 +1,27 @@
 "use client";
-import Avatar from "@/assets/avatar.png";
-import { motion, Variants } from "framer-motion";
+import {
+  testimonialAvatarVariants,
+  testimonialCardVariants,
+  TESTIMONIALS,
+  testimonialsContainerVariants,
+  testimonialTitleVariants,
+} from "@/constants";
+import { motion } from "framer-motion";
 import Image from "next/image";
-const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Claire Bell",
-    role: "Designer",
-    avatar: Avatar,
-    text: "Slate helps you see how many more days you need to work to reach your financial goal for the month and year. Slate helps you see how many more days you need to work to reach your financial goal for the month and year.your financial goal for the month and year.",
-  },
-  {
-    id: 2,
-    name: "Francisco Lane",
-    role: "Designer",
-    avatar: Avatar,
-    text: "Slate helps you see how many more days you need to work to reach your financial goal for the month and year. Slate helps you see how many more days you need to work to reach your financial goal for the month and year.",
-  },
-  {
-    id: 3,
-    name: "Ralph Fisher",
-    role: "Designer",
-    avatar: Avatar,
-    text: "Slate helps you see how many more days you need to work to reach your financial goal for the month and year. Slate helps you see how many more days you need to work to reach your financial goal for the month and year.your financial goal for the month and year.",
-  },
-  {
-    id: 4,
-    name: "Jorge Murphy",
-    role: "Designer",
-    avatar: Avatar,
-    text: "Slate helps you see how many more days you need to work to reach your financial goal for the month and year. Slate helps you see how many more days you need to work to reach your financial goal for the month and year.",
-  },
-];
 
 export function Testimonials() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const titleVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: -30,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.9,
-      y: 30,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const avatarVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-        delay: 0.2,
-      },
-    },
-  };
-
   return (
     <motion.section
       className="py-20  text-white"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      variants={testimonialsContainerVariants}
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.3 }}
     >
       <div className="">
         <motion.h2
-          variants={titleVariants}
+          variants={testimonialTitleVariants}
           className="text-[36px] font-semibold text-center mb-16"
         >
           Testimonials
@@ -114,7 +31,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              variants={cardVariants}
+              variants={testimonialCardVariants}
               whileHover={{
                 scale: 1.02,
                 y: -5,
@@ -128,7 +45,7 @@ export function Testimonials() {
             >
               <div className="flex items-center ">
                 <motion.div
-                  variants={avatarVariants}
+                  variants={testimonialAvatarVariants}
                   className="w-16 h-16 rounded-full  flex items-center justify-center  overflow-hidden"
                 >
                   <Image
