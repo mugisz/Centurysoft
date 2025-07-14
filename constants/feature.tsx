@@ -3,6 +3,7 @@ import LineChart from "@/assets/LineChart.png";
 import FeatureFirstIcon from "@/assets/icon/feature-first.svg";
 import FeatureThirdIcon from "@/assets/icon/feature-last.svg";
 import FeatureSecondIcon from "@/assets/icon/feature-second.svg";
+import { Easing } from "framer-motion";
 
 export const FEATURES_CONTENT = {
   title: "FEATURES",
@@ -67,7 +68,7 @@ export const ANIMATION_VARIANTS = {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: [0.6, 0.01, -0.05, 0.95] as Easing,
       },
     },
   },

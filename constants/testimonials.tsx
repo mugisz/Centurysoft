@@ -1,6 +1,7 @@
+"use client";
+
 import Avatar from "@/assets/avatar.png";
 import { Variants } from "framer-motion";
-("use client");
 
 const TESTIMONIALS = [
   {
