@@ -68,12 +68,13 @@ export const ANIMATION_VARIANTS = {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: [0.6, 0.01, -0.05, 0.95] as Easing,
+        ease: "easeOut" as Easing,
       },
     },
   },
 };
 
+// CSS styles for the features section
 export const FEATURE_STYLES = {
   section: "w-full flex flex-col justify-center gap-10 px-4 mb-6",
   header:
