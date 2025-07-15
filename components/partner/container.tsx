@@ -33,7 +33,7 @@ export function PartnerContainer() {
       initial={{ y: 100, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: false, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.3 }}
     >
       <motion.div variants={partnersHeaderVariants}>
         <ContentHeader

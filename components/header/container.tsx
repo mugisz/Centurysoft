@@ -12,8 +12,8 @@ export function HeaderContainer() {
   };
 
   return (
-    <header className="w-full px-4 py-4  z-10" role="banner">
-      <div className="flex items-center justify-between max-w-[1100px] mx-auto h-[120px] z-10 ">
+    <header className="w-full px-4 py-4  z-20 relative" role="banner">
+      <div className="flex items-center justify-between max-w-[1100px] mx-auto h-[120px] z-20 ">
         <HeaderLogo />
 
         <Navigation items={NAVIGATION_ITEMS} className="hidden md:flex" />

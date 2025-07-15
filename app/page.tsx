@@ -1,16 +1,44 @@
 "use client";
-import {
-  BannerContainer,
-  ContentsContainer,
-  FeaturesContainer,
-  Footer,
-  GalleryContainer,
-  HeaderContainer,
-  HeroContainer,
-  PartnerContainer,
-  Testimonials,
-} from "@/components";
 import { motion } from "framer-motion";
+import { lazy } from "react";
+
+import { HeaderContainer, HeroContainer } from "@/components";
+
+const FeaturesContainer = lazy(() =>
+  import("@/components").then((module) => ({
+    default: module.FeaturesContainer,
+  }))
+);
+
+const ContentsContainer = lazy(() =>
+  import("@/components").then((module) => ({
+    default: module.ContentsContainer,
+  }))
+);
+
+const GalleryContainer = lazy(() =>
+  import("@/components").then((module) => ({
+    default: module.GalleryContainer,
+  }))
+);
+
+const PartnerContainer = lazy(() =>
+  import("@/components").then((module) => ({
+    default: module.PartnerContainer,
+  }))
+);
+
+const Testimonials = lazy(() =>
+  import("@/components").then((module) => ({ default: module.Testimonials }))
+);
+
+const BannerContainer = lazy(() =>
+  import("@/components").then((module) => ({ default: module.BannerContainer }))
+);
+
+const Footer = lazy(() =>
+  import("@/components").then((module) => ({ default: module.Footer }))
+);
 
 export default function Home() {
   return (
@@ -22,12 +50,19 @@ export default function Home() {
     >
       <HeaderContainer />
       <HeroContainer />
+
       <FeaturesContainer />
+
       <ContentsContainer />
+
       <GalleryContainer />
+
       <PartnerContainer />
+
       <Testimonials />
+
       <BannerContainer />
+
       <Footer />
     </motion.div>
   );

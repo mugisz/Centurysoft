@@ -74,7 +74,6 @@ export const ANIMATION_VARIANTS = {
   },
 };
 
-// CSS styles for the features section
 export const FEATURE_STYLES = {
   section: "w-full flex flex-col justify-center gap-10 px-4 mb-6",
   header:
