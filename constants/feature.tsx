@@ -78,8 +78,8 @@ export const FEATURE_STYLES = {
   section: "w-full flex flex-col justify-center gap-10 px-4 mb-6",
   header:
     "flex flex-col justify-center items-center gap-2 max-w-[500px] mx-auto",
-  title: "uppercase text-[36px] font-semibold",
-  description: "text-[-foundational-gray-500] text-center",
+  title: "uppercase text-[36px] font-semibold text-white ",
+  description: "text-[-foundational-gray-500] text-center text-white",
   content:
     "flex sm:flex-row flex-col items-center sm:items-start justify-center gap-6",
   imageContainer: "relative",
@@ -87,6 +87,6 @@ export const FEATURE_STYLES = {
   featureCard:
     "flex flex-col items-center justify-start gap-4 w-[269px] h-[200px]",
   featureHeader: "flex flex-row justify-start gap-2 w-full items-center",
-  featureTitle: "text-[22px] font-semibold",
-  featureDescription: "text-[14px] text-start font-medium",
+  featureTitle: "text-[22px] font-semibold text-white",
+  featureDescription: "text-[14px] text-start font-medium text-white",
 };

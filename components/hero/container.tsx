@@ -9,7 +9,7 @@ export function HeroContainer() {
       className="flex items-center justify-start sm:justify-center mt-[20%] sm:mt-0 flex-col h-[800px] sm:h-screen gap-10  sm:pb-[20%] relative"
       initial={{ y: 100, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: 3.5 }}
       viewport={{ once: true, amount: 0.3 }}
     >
       <SplineScene />

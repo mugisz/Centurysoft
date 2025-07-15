@@ -1,8 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
 import { lazy } from "react";
 
-import { HeaderContainer, HeroContainer } from "@/components";
+import { HeaderContainer, HeroContainer, SplashScreen } from "@/components";
 
 const FeaturesContainer = lazy(() =>
   import("@/components").then((module) => ({
@@ -42,28 +41,25 @@ const Footer = lazy(() =>
 
 export default function Home() {
   return (
-    <motion.div
-      className="overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <HeaderContainer />
-      <HeroContainer />
+    <>
+      <SplashScreen>
+        <HeaderContainer />
+        <HeroContainer />
 
-      <FeaturesContainer />
+        <FeaturesContainer />
 
-      <ContentsContainer />
+        <ContentsContainer />
 
-      <GalleryContainer />
+        <GalleryContainer />
 
-      <PartnerContainer />
+        <PartnerContainer />
 
-      <Testimonials />
+        <Testimonials />
 
-      <BannerContainer />
+        <BannerContainer />
 
-      <Footer />
-    </motion.div>
+        <Footer />
+      </SplashScreen>
+    </>
   );
 }

@@ -8,5 +8,6 @@ export * from "./galery";
 export * from "./header";
 export * from "./hero";
 export * from "./partner";
+export * from "./splash-screen";
 export * from "./testimonials";
 export * from "./ui";
