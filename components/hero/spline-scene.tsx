@@ -15,7 +15,6 @@ interface SplineSceneProps {
   enableInteraction?: boolean;
 }
 
-// Хук для перевірки розміру екрану
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,7 +32,6 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-// Хук для відстеження видимості компонента
 const useIntersectionObserver = (
   containerRef: React.RefObject<HTMLDivElement>
 ) => {
@@ -66,7 +64,6 @@ const useIntersectionObserver = (
   return shouldRender;
 };
 
-// Налаштування якості рендерингу
 const getQualitySettings = (quality: SplineSceneProps["quality"]) => {
   const settings = {
     low: {
@@ -91,7 +88,6 @@ const getQualitySettings = (quality: SplineSceneProps["quality"]) => {
   return settings[quality || "medium"];
 };
 
-// Компонент завантаження
 const LoadingFallback = memo(() => (
   <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-gray-900 to-gray-800">
     <div className="text-center">
@@ -101,7 +97,6 @@ const LoadingFallback = memo(() => (
   </div>
 ));
 
-// Компонент помилки
 const ErrorFallback = memo(() => (
   <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-gray-900 to-gray-800">
     <div className="text-center">
@@ -111,7 +106,6 @@ const ErrorFallback = memo(() => (
   </div>
 ));
 
-// Основна логіка Spline сцени
 const SplineContent = memo(
   ({
     quality,
@@ -195,7 +189,6 @@ export const SplineScene = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const shouldRender = useIntersectionObserver(containerRef);
 
-    // Не рендерити на мобільних пристроях
     if (isMobile) {
       return null;
     }
