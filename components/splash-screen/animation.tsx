@@ -1,30 +1,65 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import { useEffect, useMemo, useRef } from "react";
+
 export const SplashScreenAnimation = ({
   onComplete,
 }: {
   onComplete: () => void;
 }) => {
+  const animationRef = useRef<HTMLDivElement>(null);
+
+  const particles = useMemo(() => {
+    return Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x:
+        Math.random() *
+        (typeof window !== "undefined" ? window.innerWidth : 1920),
+      y:
+        Math.random() *
+        (typeof window !== "undefined" ? window.innerHeight : 1080),
+      delay: Math.random() * 2,
+      duration: 2 + Math.random() * 2,
+    }));
+  }, []);
+
+  const letterVariants: Variants = useMemo(
+    () => ({
+      hidden: { y: 100, opacity: 0 },
+      visible: (i: number) => ({
+        y: 0,
+        opacity: 1,
+        transition: {
+          duration: 0.6,
+          delay: 0.8 + i * 0.1,
+          ease: "easeOut" as const,
+        },
+      }),
+    }),
+    []
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 3500);
+
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
   return (
-    <motion.div
+    <div
+      ref={animationRef}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
     >
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+        {particles.map((particle) => (
           <motion.div
-            key={i}
+            key={particle.id}
             className="absolute w-1 h-1 bg-cyan-600 rounded-full"
             initial={{
-              x:
-                Math.random() *
-                (typeof window !== "undefined" ? window.innerWidth : 1920),
-              y:
-                Math.random() *
-                (typeof window !== "undefined" ? window.innerHeight : 1080),
+              x: particle.x,
+              y: particle.y,
               opacity: 0,
             }}
             animate={{
@@ -32,9 +67,9 @@ export const SplashScreenAnimation = ({
               scale: [0, 0.8, 0],
             }}
             transition={{
-              duration: 2 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: particle.delay,
             }}
           />
         ))}
@@ -63,13 +98,10 @@ export const SplashScreenAnimation = ({
               <motion.span
                 key={index}
                 className="inline-block"
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.8 + index * 0.1,
-                  ease: "easeOut",
-                }}
+                variants={letterVariants}
+                initial="hidden"
+                animate="visible"
+                custom={index}
               >
                 {letter}
               </motion.span>
@@ -97,27 +129,25 @@ export const SplashScreenAnimation = ({
           </p>
         </motion.div>
 
+        {/* Optimized loading dots */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 2.2 }}
           className="flex items-center justify-center space-x-2"
         >
-          <motion.div
-            className="w-2 h-2 bg-white rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-          />
-          <motion.div
-            className="w-2 h-2 bg-white rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-          />
-          <motion.div
-            className="w-2 h-2 bg-white rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-          />
+          {[0, 0.2, 0.4].map((delay, index) => (
+            <motion.div
+              key={index}
+              className="w-2 h-2 bg-white rounded-full"
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 0.6,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          ))}
         </motion.div>
       </div>
 
@@ -128,6 +158,6 @@ export const SplashScreenAnimation = ({
         onAnimationComplete={onComplete}
         className="absolute"
       />
-    </motion.div>
+    </div>
   );
 };

@@ -1,9 +1,7 @@
 "use client";
 import {
-  partnerButtonVariants,
   PARTNERS,
   partnersContainerVariants,
-  partnersHeaderVariants,
   partnerVariants,
 } from "@/constants";
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,20 +25,18 @@ export function PartnerContainer() {
   };
 
   return (
-    <motion.section
+    <section
       className="flex flex-col justify-center items-center gap-6 px-2 sm:px-0"
-      variants={partnersContainerVariants}
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
+      // variants={partnersContainerVariants}
+      // initial={{ y: 100, opacity: 0 }}
+      // whileInView={{ y: 0, opacity: 1 }}
+      // transition={{ duration: 0.8, ease: "easeOut" }}
+      // viewport={{ once: true, amount: 0.3 }}
     >
-      <motion.div variants={partnersHeaderVariants}>
-        <ContentHeader
-          title="Partners"
-          description="We focus on ergonomics and meeting you where you work. It's only a keystroke away."
-        />
-      </motion.div>
+      <ContentHeader
+        title="Partners"
+        description="We focus on ergonomics and meeting you where you work. It's only a keystroke away."
+      />
 
       <motion.div
         className="flex flex-row justify-center "
@@ -71,21 +67,19 @@ export function PartnerContainer() {
         </div>
       </motion.div>
 
-      <motion.div variants={partnerButtonVariants}>
-        {!isExpanded ? (
-          <BounceButton
-            text="All Partners"
-            handleClick={handleSeeMore}
-            isHidden={false}
-          />
-        ) : (
-          <BounceButton
-            text="Show Less"
-            handleClick={handleShowLess}
-            isHidden={false}
-          />
-        )}
-      </motion.div>
-    </motion.section>
+      {!isExpanded ? (
+        <BounceButton
+          text="All Partners"
+          handleClick={handleSeeMore}
+          isHidden={false}
+        />
+      ) : (
+        <BounceButton
+          text="Show Less"
+          handleClick={handleShowLess}
+          isHidden={false}
+        />
+      )}
+    </section>
   );
 }

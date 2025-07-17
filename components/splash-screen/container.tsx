@@ -1,47 +1,135 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SplashScreenAnimation } from "./animation";
 
-export const SplashScreen = ({ children }: { children: React.ReactNode }) => {
-  const [showSplash, setShowSplash] = useState(true);
+interface SplashScreenProps {
+  children: React.ReactNode;
+  duration?: number;
+  skipOnInteraction?: boolean;
+}
+
+const useBodyOverflow = (isLocked: boolean) => {
+  const originalOverflowRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 3500);
+    const body = document.body;
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (showSplash) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
+    if (originalOverflowRef.current === null) {
+      originalOverflowRef.current = body.style.overflow || "auto";
     }
 
+    body.style.overflow = isLocked ? "hidden" : originalOverflowRef.current;
+
     return () => {
-      document.body.style.overflow = "auto";
+      body.style.overflow = originalOverflowRef.current || "auto";
     };
-  }, [showSplash]);
+  }, [isLocked]);
+};
+
+const useSplashScreen = (duration: number, skipOnInteraction: boolean) => {
+  const [showSplash, setShowSplash] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout>();
+
+  const hideSplash = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setIsAnimating(true);
+    setShowSplash(false);
+  }, []);
+
+  const handleComplete = useCallback(() => {
+    hideSplash();
+  }, [hideSplash]);
+
+  const handleSkip = useCallback(() => {
+    if (skipOnInteraction && showSplash) {
+      hideSplash();
+    }
+  }, [skipOnInteraction, showSplash, hideSplash]);
+
+  useEffect(() => {
+    timerRef.current = setTimeout(hideSplash, duration);
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [duration, hideSplash]);
+
+  useEffect(() => {
+    if (!skipOnInteraction) return;
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || e.key === " ") {
+        handleSkip();
+      }
+    };
+
+    const handleClick = () => handleSkip();
+
+    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("click", handleClick);
+    };
+  }, [skipOnInteraction, handleSkip]);
+
+  return {
+    showSplash,
+    isAnimating,
+    handleComplete,
+  };
+};
+
+export const SplashScreen = ({
+  children,
+  duration = 3500,
+  skipOnInteraction = false,
+}: SplashScreenProps) => {
+  const { showSplash, isAnimating, handleComplete } = useSplashScreen(
+    duration,
+    skipOnInteraction
+  );
+
+  useBodyOverflow(showSplash);
 
   return (
     <>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showSplash && (
-          <SplashScreenAnimation onComplete={() => setShowSplash(false)} />
+          <SplashScreenAnimation onComplete={handleComplete} key="splash" />
         )}
       </AnimatePresence>
 
       <motion.div
         className="overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showSplash ? 0 : 1 }}
-        transition={{ duration: 0.5, delay: showSplash ? 0 : 0.5 }}
+        initial="hidden"
+        animate={showSplash ? "hidden" : "visible"}
+        style={{
+          minHeight: showSplash ? "100vh" : "auto",
+        }}
       >
-        {children}
+        {(!showSplash || isAnimating) && children}
       </motion.div>
+
+      {skipOnInteraction && showSplash && (
+        <motion.div
+          className="fixed bottom-4 right-4 z-50 text-white/70 text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 1 }}
+        >
+          Press ESC or click to skip
+        </motion.div>
+      )}
     </>
   );
 };
+
+export type { SplashScreenProps };

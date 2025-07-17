@@ -1,31 +1,26 @@
 "use client";
-import {
-  ANIMATION_VARIANTS,
-  FEATURE_IMAGES,
-  FEATURE_STYLES,
-  FEATURES_CONTENT,
-} from "@/constants";
+import { FEATURE_IMAGES, FEATURE_STYLES, FEATURES_CONTENT } from "@/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FeatureList } from "./list";
 
 export function FeaturesContainer() {
   return (
-    <motion.section
+    <section
       className={FEATURE_STYLES.section}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={ANIMATION_VARIANTS.container}
+      // initial="hidden"
+      // whileInView="visible"
+      // viewport={{ once: true, amount: 0.3 }}
+      // variants={ANIMATION_VARIANTS.container}
     >
-      <motion.div className={FEATURE_STYLES.header}>
+      <div className={FEATURE_STYLES.header}>
         <h3 className={FEATURE_STYLES.title}>{FEATURES_CONTENT.title}</h3>
         <p className={FEATURE_STYLES.description}>
           {FEATURES_CONTENT.description}
         </p>
-      </motion.div>
+      </div>
 
-      <motion.div className={FEATURE_STYLES.content}>
+      <div className={FEATURE_STYLES.content}>
         <motion.div
           className={FEATURE_STYLES.imageContainer}
           whileHover={{ scale: 1.05 }}
@@ -40,7 +35,7 @@ export function FeaturesContainer() {
         </motion.div>
 
         <FeatureList />
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }

@@ -1,12 +1,7 @@
 "use client";
 
 import ContentCards from "@/assets/ContentCards.png";
-import {
-  galeryButtonVariants,
-  galeryContainerVariants,
-  galeryHeaderVariants,
-  galeryImageVariants,
-} from "@/constants";
+import { galeryImageVariants } from "@/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
@@ -14,10 +9,10 @@ import { ContentHeader } from "../content-header";
 import { BounceButton } from "../ui";
 
 export function GalleryContainer() {
-  const [visibleImages, setVisibleImages] = useState(8);
+  const [visibleImages, setVisibleImages] = useState(6);
   const [isExpanded, setIsExpanded] = useState(false);
-  const totalImages = 16;
-  const initialImages = 8;
+  const totalImages = 8;
+  const initialImages = 4;
 
   const handleSeeMore = () => {
     setVisibleImages((prev) => Math.min(prev + 8, totalImages));
@@ -30,28 +25,15 @@ export function GalleryContainer() {
   };
 
   return (
-    <motion.section
-      className="flex flex-col justify-center gap-6 my-12 px-4"
-      variants={galeryContainerVariants}
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <motion.div variants={galeryHeaderVariants}>
-        <ContentHeader
-          title="Gallery"
-          description="We focus on ergonomics and meeting you where you work. It's only a keystroke away."
-        />
-      </motion.div>
+    <section className="flex flex-col justify-center gap-6 my-12 px-4">
+      <ContentHeader
+        title="Gallery"
+        description="We focus on ergonomics and meeting you where you work. It's only a keystroke away."
+      />
 
       <div className="flex items-center flex-col justify-center">
         <AnimatePresence mode="popLayout">
-          <motion.div
-            className="flex flex-row flex-wrap justify-center gap-6"
-            variants={galeryContainerVariants}
-            layout
-          >
+          <div className="flex flex-row flex-wrap justify-center gap-6">
             {Array.from({ length: visibleImages }).map((_, index) => (
               <motion.div
                 key={index}
@@ -79,44 +61,34 @@ export function GalleryContainer() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </AnimatePresence>
 
-        <motion.div variants={galeryButtonVariants} className="mt-8">
-          <AnimatePresence mode="wait">
-            {visibleImages < totalImages && !isExpanded && (
-              <motion.div
-                key="see-more"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <BounceButton
-                  text="See more"
-                  handleClick={handleSeeMore}
-                  isHidden={false}
-                />
-              </motion.div>
-            )}
-            {isExpanded && (
-              <motion.div
-                key="show-less"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <BounceButton
-                  text="Show less"
-                  handleClick={handleShowLess}
-                  isHidden={false}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+        <div className="mt-8">
+          {visibleImages < totalImages && !isExpanded && (
+            <motion.div
+              key="see-more"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <BounceButton
+                text="See more"
+                handleClick={handleSeeMore}
+                isHidden={false}
+              />
+            </motion.div>
+          )}
+          {isExpanded && (
+            <BounceButton
+              text="Show less"
+              handleClick={handleShowLess}
+              isHidden={false}
+            />
+          )}
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

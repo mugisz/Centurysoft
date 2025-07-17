@@ -3,29 +3,24 @@ import {
   testimonialAvatarVariants,
   testimonialCardVariants,
   TESTIMONIALS,
-  testimonialsContainerVariants,
-  testimonialTitleVariants,
 } from "@/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export function Testimonials() {
   return (
-    <motion.section
+    <section
       className="py-20 text-white"
-      variants={testimonialsContainerVariants}
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
+      // variants={testimonialsContainerVariants}
+      // initial={{ y: 100, opacity: 0 }}
+      // whileInView={{ y: 0, opacity: 1 }}
+      // transition={{ duration: 0.8, ease: "easeOut" }}
+      // viewport={{ once: true, amount: 0.3 }}
     >
       <div className="">
-        <motion.h2
-          variants={testimonialTitleVariants}
-          className="text-[36px] font-semibold text-center mb-16"
-        >
+        <h2 className="text-[36px] font-semibold text-center mb-16 text-white">
           Testimonials
-        </motion.h2>
+        </h2>
 
         <div className="flex flex-row flex-wrap w-full justify-center gap-8">
           {TESTIMONIALS.map((testimonial, index) => (
@@ -62,18 +57,13 @@ export function Testimonials() {
                 </div>
               </div>
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="text-gray-300 leading-relaxed overflow-y-auto max-h-[230px] custom-scrollbar"
-              >
+              <p className="text-gray-300 leading-relaxed overflow-y-auto max-h-[230px] custom-scrollbar">
                 {testimonial.text}
-              </motion.p>
+              </p>
             </motion.div>
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

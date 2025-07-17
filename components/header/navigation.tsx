@@ -22,12 +22,7 @@ export function Navigation({
       role="navigation"
       aria-label={isMobile ? "Mobile navigation" : "Main navigation"}
     >
-      <motion.ul
-        className={baseStyles}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+      <ul className={baseStyles}>
         {items.map((item, index) => (
           <motion.li
             key={item.href}
@@ -53,54 +48,11 @@ export function Navigation({
             whileTap={{ scale: 0.95 }}
           >
             <Link href={item.href} className={linkStyles}>
-              <motion.span
-                className="relative z-10"
-                whileHover={{
-                  y: -2,
-                  transition: { duration: 0.2 },
-                }}
-              >
-                {item.label}
-              </motion.span>
-
-              <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-gray-400"
-                initial={{ width: 0, opacity: 0 }}
-                whileHover={{
-                  width: "100%",
-                  opacity: 1,
-                  transition: {
-                    duration: 0.3,
-                    ease: "easeOut",
-                  },
-                }}
-              />
-
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-lg -z-10"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileHover={{
-                  opacity: 1,
-                  scale: 1,
-                  transition: { duration: 0.3 },
-                }}
-              />
-
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -z-10"
-                initial={{ x: "-100%" }}
-                whileHover={{
-                  x: "100%",
-                  transition: {
-                    duration: 0.6,
-                    ease: "easeInOut",
-                  },
-                }}
-              />
+              {item.label}
             </Link>
           </motion.li>
         ))}
-      </motion.ul>
+      </ul>
     </nav>
   );
 }

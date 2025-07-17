@@ -6,42 +6,21 @@ import { EnhancedDashedButton } from "../ui";
 
 export function BannerContainer() {
   return (
-    <motion.section
+    <section
       className="w-[80%] mx-auto lg:w-full h-[500px] lg:h-[370px] py-2 rounded-3xl  border border-white relative flex justify-start items-center overflow-hidden"
-      animate={{ opacity: 1, y: 0 }}
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: false, amount: 0.3 }}
+      // animate={{ opacity: 1, y: 0 }}
+      // initial={{ y: 100, opacity: 0 }}
+      // whileInView={{ y: 0, opacity: 1 }}
+      // transition={{ duration: 0.8, ease: "easeOut" }}
+      // viewport={{ once: false, amount: 0.3 }}
     >
-      <motion.div
-        className="flex flex-col justify-start items-center lg:items-start lg:ml-10  lg:w-1/2 gap-4 relative z-10  h-full pt-10 px-2 lg:px-0 "
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-      >
-        <motion.h4
-          className=" text-[34px] lg:text-[54px] font-bold text-white leading-tight text-center lg:text-left "
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-          whileHover={{
-            scale: 1.05,
-            color: "#60a5fa",
-            transition: { duration: 0.2 },
-          }}
-        >
+      <div className="flex flex-col justify-start items-center lg:items-start lg:ml-10  lg:w-1/2 gap-4 relative z-10  h-full pt-10 px-2 lg:px-0 ">
+        <h4 className=" text-[34px] lg:text-[54px] font-bold text-white leading-tight text-center lg:text-left ">
           OpenType features and Variable fonts
-        </motion.h4>
+        </h4>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-        >
-          <EnhancedDashedButton text="Try for free" width={232} height={52} />
-        </motion.div>
-      </motion.div>
+        <EnhancedDashedButton text="Try for free" width={232} height={52} />
+      </div>
 
       <motion.div
         className="absolute right-0 bottom-0"
@@ -90,6 +69,6 @@ export function BannerContainer() {
           delay: 1,
         }}
       />
-    </motion.section>
+    </section>
   );
 }

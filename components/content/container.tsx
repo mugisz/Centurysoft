@@ -45,25 +45,20 @@ export function ContentsContainer() {
   };
 
   return (
-    <motion.section
+    <section
       className="flex flex-col mt-[120px] px-4"
-      variants={containerVariants}
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
+      // variants={containerVariants}
+      // initial={{ y: 100, opacity: 0 }}
+      // whileInView={{ y: 0, opacity: 1 }}
+      // transition={{ duration: 0.8, ease: "easeOut" }}
+      // viewport={{ once: true, amount: 0.3 }}
     >
-      <motion.div variants={headerVariants}>
-        <ContentHeader
-          title="Contents"
-          description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis iusto, cupiditate quo nihil quos autem, doloribus reprehenderit"
-        />
-      </motion.div>
+      <ContentHeader
+        title="Contents"
+        description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis iusto, cupiditate quo nihil quos autem, doloribus reprehenderit"
+      />
 
-      <motion.div
-        className="flex items-center justify-center flex-col sm:flex-row gap-8 mt-10"
-        variants={containerVariants}
-      >
+      <div className="flex items-center justify-center flex-col sm:flex-row gap-8 mt-10">
         <motion.div
           variants={cardVariants}
           whileHover={{
@@ -101,7 +96,7 @@ export function ContentsContainer() {
             className="shadow-xl rounded-xl"
           />
         </motion.div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }

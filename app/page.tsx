@@ -1,8 +1,5 @@
-"use client";
-import { lazy } from "react";
-
-import { HeaderContainer, HeroContainer, SplashScreen } from "@/components";
-
+import { HeaderContainer, HeroContainer, LoadingSpinner } from "@/components";
+import { Suspense, lazy } from "react";
 const FeaturesContainer = lazy(() =>
   import("@/components").then((module) => ({
     default: module.FeaturesContainer,
@@ -28,38 +25,56 @@ const PartnerContainer = lazy(() =>
 );
 
 const Testimonials = lazy(() =>
-  import("@/components").then((module) => ({ default: module.Testimonials }))
+  import("@/components").then((module) => ({
+    default: module.Testimonials,
+  }))
 );
 
 const BannerContainer = lazy(() =>
-  import("@/components").then((module) => ({ default: module.BannerContainer }))
+  import("@/components").then((module) => ({
+    default: module.BannerContainer,
+  }))
 );
 
 const Footer = lazy(() =>
-  import("@/components").then((module) => ({ default: module.Footer }))
+  import("@/components").then((module) => ({
+    default: module.Footer,
+  }))
 );
 
 export default function Home() {
   return (
     <>
-      <SplashScreen>
-        <HeaderContainer />
-        <HeroContainer />
+      <HeaderContainer />
+      <HeroContainer />
 
+      <Suspense fallback={<LoadingSpinner />}>
         <FeaturesContainer />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <ContentsContainer />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <GalleryContainer />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <PartnerContainer />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <Testimonials />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <BannerContainer />
+      </Suspense>
 
+      <Suspense fallback={<LoadingSpinner />}>
         <Footer />
-      </SplashScreen>
+      </Suspense>
     </>
   );
 }
